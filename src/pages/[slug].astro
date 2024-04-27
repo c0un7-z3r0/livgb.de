@@ -1,0 +1,51 @@
+---
+import BodyMapper from "../components/BodyMapper.astro";
+import HeroImage from "../components/HeroImage.astro";
+import PageTitle from "../components/PageTitle.astro";
+import {
+  GetPage,
+  type GetPageQuery,
+} from "../graphql/__generated__/operations";
+import client from "../graphql/apollo-client";
+import Layout from "../layouts/Layout.astro";
+
+const { slug } = Astro.params;
+let pageQueryResult: GetPageQuery = null;
+
+try {
+  const { data } = await client.query<GetPageQuery>({
+    fetchPolicy: "no-cache",
+    query: GetPage,
+    variables: {
+      slug,
+    },
+  });
+
+  if (data.pages.data.length === 0) {
+    return new Response("Page not found", {
+      status: 404,
+    });
+  }
+
+  pageQueryResult = data;
+} catch (err) {
+  return new Response("Page not found", {
+    status: 404,
+  });
+}
+
+const {
+  HeroImage: heroImage,
+  Title,
+  Body,
+  HidePageTitle,
+} = pageQueryResult.pages.data[0].attributes;
+---
+
+<Layout>
+  <div class="flex flex-col">
+    {heroImage?.Image && <HeroImage heroImage={heroImage} />}
+    {!HidePageTitle && <PageTitle value={Title} />}
+    <BodyMapper content={Body} />
+  </div>
+</Layout>

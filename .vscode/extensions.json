@@ -1,0 +1,13 @@
+{
+  "recommendations": [
+    "astro-build.astro-vscode",
+    "aaron-bond.better-comments",
+    "mikestead.dotenv",
+    "mquandalle.graphql",
+    "seatonjiang.gitmoji-vscode",
+    "bradlc.vscode-tailwindcss",
+    "austenc.tailwind-docs",
+    "1000ch.svgo"
+  ],
+  "unwantedRecommendations": []
+}

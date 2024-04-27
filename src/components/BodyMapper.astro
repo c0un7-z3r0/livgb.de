@@ -1,0 +1,48 @@
+---
+import MosaicContainer from "../components/MosaicContainer.astro";
+import Image from "./Image.astro";
+import MarkdownText from "./MarkdownText.astro";
+import NarrowWrapper from "../layouts/NarrowWrapper.astro";
+import type { PageBodyFragment } from "../graphql/__generated__/operations";
+import HeroImage from "./HeroImage.astro";
+
+interface Props {
+  content: PageBodyFragment[];
+}
+
+const { content } = Astro.props;
+---
+
+{
+  content.map((pageBody) => {
+    switch (pageBody.__typename) {
+      case "ComponentPageMarkdown":
+        return (
+          <NarrowWrapper>
+            <MarkdownText data={pageBody} />
+          </NarrowWrapper>
+        );
+      case "ComponentPageMedia":
+        return (
+          <NarrowWrapper>
+            <Image data={pageBody} />;
+          </NarrowWrapper>
+        );
+      case "ComponentPageHeroImage":
+        return (
+          <NarrowWrapper>
+            <HeroImage heroImage={pageBody} />;
+          </NarrowWrapper>
+        );
+      case "ComponentPageMosaicImageGallery":
+        return (
+          <NarrowWrapper>
+            <MosaicContainer images={pageBody.Images} />{" "}
+          </NarrowWrapper>
+        );
+
+      default:
+        break;
+    }
+  })
+}

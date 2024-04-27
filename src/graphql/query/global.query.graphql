@@ -1,0 +1,22 @@
+query GetGlobalData {
+  imprint {
+    data {
+      attributes {
+        Contact {
+          FirstName
+          LastName
+        }
+      }
+    }
+  }
+  global {
+    data {
+      attributes {
+        Title
+        Sidebar {
+          ...Navbar
+        }
+      }
+    }
+  }
+}

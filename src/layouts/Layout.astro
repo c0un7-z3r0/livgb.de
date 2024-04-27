@@ -1,0 +1,176 @@
+---
+import ResponsiveSidebar from "../components/ResponsiveSidebar.astro";
+import {
+  GetGlobalData,
+  type GetGlobalDataQuery,
+  type LinkFragment,
+} from "../graphql/__generated__/operations";
+import client from "../graphql/apollo-client";
+
+const fixLinkSlash = (link: LinkFragment) => {
+  const url = link?.page?.data?.attributes?.slug || link?.url || "";
+  return {
+    ...link,
+    url: url?.startsWith("/") ? url : `/${url}`,
+  };
+};
+
+const { data } = await client.query<GetGlobalDataQuery>({
+  fetchPolicy: "no-cache",
+  query: GetGlobalData,
+});
+
+const { DataProtectionLink, Links, ImprintLink, SocialLinks } =
+  data.global.data.attributes.Sidebar;
+
+const links = Links.map((link) => fixLinkSlash(link));
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="Astro description" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{data.global.data.attributes.Title}</title>
+  </head>
+  <body class="flex h-screen">
+    <header>
+      <ResponsiveSidebar
+        links={links}
+        socialLinks={SocialLinks}
+        imprintLink={fixLinkSlash(ImprintLink)}
+        dataProtectionLink={fixLinkSlash(DataProtectionLink)}
+      />
+    </header>
+    <main
+      class="main md:ml-64 mt-20 px-2 md:mt-0 md:pt-16 overflow-y-auto w-full"
+    >
+      <slot />
+    </main>
+  </body>
+</html>
+
+<style is:global>
+  body {
+    font-family: "Helvetica", "Arial", sans-serif;
+  }
+  @tailwind base;
+  @tailwind components;
+  @tailwind utilities;
+
+  /*******************************************
+  Rich Text Styles
+  *******************************************/
+
+  /* Headers */
+  .rich-text h1 {
+    @apply text-4xl pb-5;
+  }
+
+  .rich-text h2 {
+    @apply text-3xl pb-5;
+  }
+
+  .rich-text h3 {
+    @apply text-2xl mb-6 text-gray-800;
+  }
+
+  .rich-text h4 {
+    @apply text-xl mb-4 text-gray-800;
+  }
+
+  rich-text h5 {
+    @apply text-lg mb-4 text-gray-800;
+  }
+
+  .rich-text h6 {
+    @apply text-base mb-4 text-gray-800;
+  }
+
+  /* Horizontal rules */
+  .rich-text hr {
+    @apply text-gray-800 my-8;
+  }
+
+  .rich-text a {
+    @apply text-gray-900 underline text-xl leading-relaxed;
+  }
+
+  /* Typographic replacements */
+  .rich-text p {
+    @apply mb-8 text-xl leading-relaxed text-gray-700;
+  }
+
+  /* Emphasis */
+  .rich-text strong {
+    @apply font-bold text-xl leading-relaxed;
+  }
+
+  .rich-text em {
+    @apply italic text-xl leading-relaxed;
+  }
+
+  .rich-text del {
+    @apply line-through text-xl leading-relaxed;
+  }
+
+  /* Blockquotes */
+  .rich-text blockquote {
+    @apply border-l-4 border-gray-400 pl-4 py-2 mb-4;
+  }
+
+  /* Lists */
+  .rich-text ul {
+    @apply list-disc pl-4 mb-4 text-gray-800;
+  }
+
+  .rich-text ol {
+    @apply list-decimal pl-4 mb-4 text-gray-800;
+  }
+
+  .rich-text li {
+    @apply mb-2 text-gray-800;
+  }
+
+  .rich-text li > ul {
+    @apply list-disc pl-4 mb-2;
+  }
+
+  rich-text li > ol {
+    @apply list-decimal pl-4 mb-2;
+  }
+
+  /* Code blocks */
+  .rich-text pre {
+    @apply font-mono text-gray-800 rounded p-4  my-6;
+  }
+
+  .rich-text code {
+    @apply font-mono text-gray-800 rounded px-2 py-1;
+  }
+
+  /* Tables */
+  .rich-text table {
+    @apply w-full border-collapse text-gray-800 my-6;
+  }
+
+  .rich-text th {
+    @apply text-left py-2 px-4 font-semibold border-b text-gray-800;
+  }
+
+  .rich-text td {
+    @apply py-2 px-4 border-b text-gray-800;
+  }
+
+  /* Images */
+  .rich-text img {
+    @apply w-full object-cover rounded-xl my-6;
+  }
+
+  /* Custom containers */
+  .rich-text .warning {
+    @apply bg-yellow-100 border-yellow-500 text-yellow-700 px-4 py-2 rounded-lg mb-4;
+  }
+</style>

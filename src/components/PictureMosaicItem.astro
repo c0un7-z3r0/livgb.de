@@ -1,0 +1,11 @@
+---
+import { Img } from "astro-imagetools/components";
+const { src, alt = "" } = Astro.props;
+---
+
+<Img  attributes={{class: "mosaic-image"}}  alt={alt} src={src}   format="webp" layout="fullWidth" />
+<style is:inline >
+    img {
+      color: transparent;
+    }
+</style>

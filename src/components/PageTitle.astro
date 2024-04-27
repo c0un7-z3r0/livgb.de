@@ -1,0 +1,13 @@
+---
+import NarrowWrapper from "../layouts/NarrowWrapper.astro";
+
+interface Props {
+  value: string;
+}
+
+const { value } = Astro.props;
+---
+
+<NarrowWrapper>
+  <h1 class="text-4xl pb-5 mt-20">{value}</h1>
+</NarrowWrapper>

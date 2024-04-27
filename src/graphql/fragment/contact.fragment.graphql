@@ -1,0 +1,9 @@
+fragment Contact on ComponentLayoutContact {
+  FirstName
+  LastName
+  email
+  Street
+  PostCode
+  City
+  Telefon
+}

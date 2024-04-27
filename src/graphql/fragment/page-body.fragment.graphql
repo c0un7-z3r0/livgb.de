@@ -1,0 +1,7 @@
+fragment PageBody on PageBodyDynamicZone {
+  __typename
+  ...MosaicImageGallery
+  ...MarkdownText
+  ...Media
+  ...HeroImage
+}

@@ -1,0 +1,102 @@
+---
+import { Icon } from "astro-icon/components";
+import type {
+  LinkFragment,
+  SocialLinkFragment,
+} from "../graphql/__generated__/operations";
+import { data } from "autoprefixer";
+interface Props {
+  links: LinkFragment[];
+  socialLinks: SocialLinkFragment[];
+  imprintLink: LinkFragment;
+  dataProtectionLink: LinkFragment;
+}
+
+const { links, socialLinks, imprintLink, dataProtectionLink } = Astro.props;
+const currentYear = new Date().getFullYear();
+---
+
+<div class="flex flow-row fixed md:w-56 md:ml-3 md:top-0 md:bottom-0">
+  <div id="mobile-header" class="md:hidden flex flex-row w-screen">
+    <div class="flex items-center mt-2 ml-5">
+      <a href="/"><Icon name="logo" class="text-6xl md:text-10xl" /></a>
+    </div>
+
+    <div class="flex flex-row justify-end flex-1">
+      <button id="mobile-menu-btn" class="h-auto m-5"
+        ><Icon name="mdi:menu" class="text-4xl" />
+      </button>
+    </div>
+  </div>
+
+  <div
+    id="sidebar"
+    class="flex-col flex-1 pr-12 pt-2 h-screen
+          overflow-y-auto align-middle absolute
+          bg-white shadow-2xl -translate-x-96 transition-transform ease-in-out duration-500
+          md:bg-transparent md:shadow-none md:p-0 md:flex md:mt-5 md:translate-x-0"
+  >
+    <div class="flex items-center mt-2 mb-12 ml-5">
+      <a href="/"><Icon name="logo" class="text-6xl md:text-10xl" /></a>
+    </div>
+    <nav class="flex-1 px-2 py-4 justify-center align-middle ml-4 text-2xl">
+      {
+        links.map((link) => (
+          <a
+            href={link.url}
+            class="flex items-center px-4 py-1 hover:text-gray-500"
+          >
+            {link.text}
+          </a>
+        ))
+      }
+      <div class="flex flex-row justify-start pt-4 px-3">
+        {
+          socialLinks.map((socialLink) => (
+            <a
+              href={socialLink.url}
+              target="_blank"
+              referrerpolicy="no-referrer"
+              class="flex items-center px-1 hover:text-gray-500"
+            >
+              <Icon name={`mdi:${socialLink.Icon}`} />
+            </a>
+          ))
+        }
+      </div>
+      <div class="text-xs px-4 pt-1 text-gray-400">
+        ©{currentYear} · Liv Gordon-Boyd
+        <div class="flex flex-row">
+          <a
+            href={imprintLink.url}
+            class="flex items-center hover:text-gray-500"
+          >
+            {imprintLink.text}
+          </a>
+          <span>&nbsp;|&nbsp;</span>
+          <a
+            href={dataProtectionLink.url}
+            class="flex items-center hover:text-gray-500"
+          >
+            {dataProtectionLink.text}
+          </a>
+        </div>
+      </div>
+    </nav>
+  </div>
+</div>
+
+<script>
+  const mobileMenuButton = document.getElementById("mobile-menu-btn");
+  const sidebar = document.getElementById("sidebar");
+
+  mobileMenuButton.addEventListener("click", () => {
+    if (sidebar.classList.contains("-translate-x-96")) {
+      sidebar.classList.remove("-translate-x-96");
+    } else {
+      sidebar.classList.add("-translate-x-96");
+    }
+  });
+</script>
+
+<style></style>

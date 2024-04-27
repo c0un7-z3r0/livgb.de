@@ -1,0 +1,10 @@
+fragment Image on ComponentPageMedia {
+  File {
+    data {
+      attributes {
+        url
+        alternativeText
+      }
+    }
+  }
+}

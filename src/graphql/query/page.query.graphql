@@ -1,0 +1,16 @@
+query GetPage($slug: String!) {
+  pages(filters: { slug: { eqi: $slug } }) {
+    data {
+      attributes {
+        Title
+        HidePageTitle
+        HeroImage {
+          ...HeroImage
+        }
+        Body {
+          ...PageBody
+        }
+      }
+    }
+  }
+}

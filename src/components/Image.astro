@@ -1,0 +1,16 @@
+---
+import { Img } from "astro-imagetools/components";
+import type { MediaComponentFragment } from "../graphql/__generated__/operations";
+
+interface Props {
+  data: MediaComponentFragment;
+}
+
+const { data } = Astro.props;
+---
+
+<Img
+  src={`${import.meta.env.STRAPI_URL}${data.File.data.attributes.url}`}
+  alt={data.File.data.attributes.url}
+  format="webp"
+/>

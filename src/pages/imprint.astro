@@ -1,0 +1,39 @@
+---
+import {
+  GetImprintPage,
+  type GetImprintPageQuery,
+} from "../graphql/__generated__/operations";
+import Layout from "../layouts/Layout.astro";
+import client from "../graphql/apollo-client";
+import NarrowWrapper from "../layouts/NarrowWrapper.astro";
+import PageTitle from "../components/PageTitle.astro";
+
+const { data } = await client.query<GetImprintPageQuery>({
+  fetchPolicy: "no-cache",
+  query: GetImprintPage,
+});
+
+const attr = data.imprint.data.attributes;
+---
+
+<Layout>
+  <PageTitle value={attr.title} />
+  <NarrowWrapper>
+    <div class="flex flex-col">
+      <span>{attr.Contact.FirstName} {attr.Contact.LastName}</span>
+      <span>{attr.Contact.Street}</span>
+      <span>{attr.Contact.PostCode} {attr.Contact.City}</span>
+    </div>
+    <h2 class="text-2xl pt-5 pb-1">Contact</h2>
+    <div class="flex flex-col">
+      {attr.Contact.Telefon && <span>Tel: {attr.Contact.Telefon}</span>}
+      <span>E-Mail: {attr.Contact.email}</span>
+    </div>
+    <h2 class="text-2xl pt-5 pb-1">Editorially Responsible</h2>
+    <div class="flex flex-col">
+      <span>{attr.Contact.FirstName} {attr.Contact.LastName}</span>
+      <span>{attr.Contact.Street}</span>
+      <span>{attr.Contact.PostCode} {attr.Contact.City}</span>
+    </div>
+  </NarrowWrapper>
+</Layout>

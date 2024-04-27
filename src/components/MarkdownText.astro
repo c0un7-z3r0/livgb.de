@@ -1,0 +1,12 @@
+---
+import { marked } from "marked";
+import type { MarkdownComponentFragment } from "../graphql/__generated__/operations";
+
+interface Props {
+  data: MarkdownComponentFragment;
+}
+
+const { data } = Astro.props;
+---
+
+<div class="rich-text" set:html={marked.parse(data.content)} />

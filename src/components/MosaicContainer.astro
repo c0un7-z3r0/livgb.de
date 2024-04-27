@@ -1,0 +1,146 @@
+---
+import {
+  getFileAttributes,
+  getImageUrl,
+  type Image,
+} from "../lib/image.helper";
+import PictureMosaicItem from "./PictureMosaicItem.astro";
+import { Icon } from "astro-icon/components";
+
+interface Props {
+  images: Image[];
+}
+
+const { images } = Astro.props;
+
+const imgs = images.map((i) => ({
+  url: getImageUrl(i),
+  alternativeText: getFileAttributes(i).alternativeText,
+  formats: getFileAttributes(i).formats,
+}));
+---
+
+<div>
+  <div
+    id="mosaic-container"
+    class="columns-2 gap-5 mx-2 sm:gap-8 md:columns-2 lg:columns-3 [&>img:not(:first-child)]:mt-8"
+  >
+    {
+      imgs.map(({ alternativeText, url }) => (
+        <PictureMosaicItem alt={alternativeText} src={url} />
+      ))
+    }
+  </div>
+
+  <div
+    data-images={JSON.stringify(imgs)}
+    data-server={import.meta.env.STRAPI_URL}
+    id="modal"
+    class="hidden fixed top-0 left-0 z-80 w-screen h-screen justify-center items-center"
+  >
+    <div id="modal-background" class="bg-black/80 w-screen h-screen"></div>
+    <button
+      id="modal-close"
+      class="fixed z-90 top-6 right-8 text-white text-5xl font-bold z-10"
+      >&times;</button
+    >
+    <div class="max-w-full max-h-full absolute">
+      <button
+        id="modal-prev"
+        class="text-white text-5xl font-bold absolute h-full left-0 w-15 bg-black transition-opacity ease-linear duration-300 opacity-0 hover:opacity-60"
+        ><Icon name="mdi:chevron-left" /></button
+      >
+      <button
+        id="modal-next"
+        class="text-white text-5xl font-bold absolute h-full right-0 w-15 bg-black transition-opacity ease-linear duration-300 opacity-0 hover:opacity-60"
+        ><Icon name="mdi:chevron-right" /></button
+      >
+      <img
+        id="modal-img"
+        class="object-cover max-w-[90vw] max-h-[90vh] p-3 md:p-0"
+      />
+    </div>
+  </div>
+</div>
+
+<script>
+  const modal = document.getElementById("modal");
+  const modalImg = document.getElementById("modal-img");
+  const imageSrcs = JSON.parse(modal.dataset.images);
+  let currIndex = -1;
+
+  const updateImage = (newIndex: number) => {
+    if (modalImg instanceof HTMLImageElement) {
+      currIndex = newIndex;
+      const src = imageSrcs[currIndex].url;
+      modalImg.src = src;
+    }
+  };
+
+  function showModal(index: number) {
+    modal.classList.remove("hidden");
+    modal.classList.add("flex");
+    updateImage(index);
+  }
+
+  function closeModal() {
+    modal.classList.remove("flex");
+    modal.classList.add("hidden");
+    currIndex = -1;
+    modalImg.removeAttribute("src");
+  }
+
+  function nextImage() {
+    const nextIndex = currIndex + 1 > imageSrcs.length - 1 ? 0 : currIndex + 1;
+    updateImage(nextIndex);
+  }
+
+  function prevImage() {
+    const nextIndex = currIndex - 1 < 0 ? imageSrcs.length - 1 : currIndex - 1;
+    updateImage(nextIndex);
+  }
+
+  function init() {
+    document
+      .getElementById("modal-background")
+      .addEventListener("click", (event) => {
+        closeModal();
+        event.stopPropagation();
+      });
+
+    document
+      .querySelectorAll("#mosaic-container>img")
+      .forEach((element, key) => {
+        element.addEventListener("click", (event) => {
+          showModal(key);
+          event.stopPropagation();
+        });
+      });
+
+    document.getElementById("modal-next").addEventListener("click", (event) => {
+      nextImage();
+      event.stopPropagation();
+    });
+
+    document.getElementById("modal-prev").addEventListener("click", (event) => {
+      prevImage();
+      event.stopPropagation();
+    });
+
+    document
+      .getElementById("modal-close")
+      .addEventListener("click", (event) => {
+        closeModal();
+        event.stopPropagation();
+      });
+    document.addEventListener("keydown", function (event) {
+      if (event.key == "ArrowLeft") {
+        prevImage();
+      } else if (event.key == "ArrowRight") {
+        nextImage();
+      }
+    });
+  }
+
+  init();
+</script>

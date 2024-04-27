@@ -1,0 +1,11 @@
+query GetFrontpage {
+  frontpage {
+    data {
+      attributes {
+        Gallery {
+          ...MosaicImageGallery
+        }
+      }
+    }
+  }
+}

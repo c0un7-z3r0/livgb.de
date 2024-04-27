@@ -1,0 +1,17 @@
+---
+import { Img } from "astro-imagetools/components";
+import type { HeroImageFragment } from "../graphql/__generated__/operations";
+
+interface Props {
+  heroImage: HeroImageFragment;
+}
+
+const { heroImage } = Astro.props;
+---
+
+<Img
+  src={`${import.meta.env.STRAPI_URL}${heroImage.Image.File.data.attributes.url}`}
+  layout="fullWidth"
+  format="webp"
+  alt={heroImage.Image.File.data.attributes.alternativeText}
+/>

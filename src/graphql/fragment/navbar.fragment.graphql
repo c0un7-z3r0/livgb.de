@@ -1,0 +1,14 @@
+fragment Navbar on ComponentLayoutNavBar {
+  SocialLinks {
+    ...SocialLink
+  }
+  Links {
+    ...Link
+  }
+  ImprintLink {
+    ...Link
+  }
+  DataProtectionLink {
+    ...Link
+  }
+}

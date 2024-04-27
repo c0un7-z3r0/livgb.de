@@ -1,0 +1,11 @@
+fragment Link on ComponentLayoutLink {
+  url
+  page {
+    data {
+      attributes {
+        slug
+      }
+    }
+  }
+  text
+}

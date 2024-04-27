@@ -1,0 +1,4 @@
+fragment MarkdownText on ComponentPageMarkdown {
+  __typename
+  content
+}

@@ -1,0 +1,15 @@
+query GetImprintPage {
+  imprint {
+    data {
+      attributes {
+        title
+        Contact {
+          ...Contact
+        }
+        EditoriallyResponsible {
+          ...Contact
+        }
+      }
+    }
+  }
+}

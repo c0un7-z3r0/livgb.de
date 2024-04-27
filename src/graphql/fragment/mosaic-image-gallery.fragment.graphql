@@ -1,0 +1,5 @@
+fragment MosaicImageGallery on ComponentPageMosaicImageGallery {
+  Images {
+    ...Image
+  }
+}

@@ -1,0 +1,4 @@
+fragment Media on ComponentPageMedia {
+  __typename
+  ...Image
+}
