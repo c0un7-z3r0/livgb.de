@@ -1,6 +1,10 @@
 ---
 import type { ImageFragment } from "../graphql/__generated__/operations";
-import { getFileAttributes, getImageUrl } from "../lib/image.helper";
+import {
+  buildImageUrl,
+  getFileAttributes,
+  getImageUrl,
+} from "../lib/image.helper";
 import PictureMosaicItem from "./PictureMosaicItem.astro";
 import { Icon } from "astro-icon/components";
 
@@ -10,11 +14,18 @@ interface Props {
 
 const { images } = Astro.props;
 
-const imgs = images.map((i) => ({
-  url: getImageUrl(i),
-  alternativeText: getFileAttributes(i).alternativeText,
-  formats: getFileAttributes(i).formats,
-}));
+const imgs = images.map((i) => {
+  const attr = getFileAttributes(i);
+  const sourceUrl = getImageUrl(i);
+
+  return {
+    url: sourceUrl,
+    alternativeText: getFileAttributes(i).alternativeText,
+    preview: attr.formats.medium
+      ? buildImageUrl(attr.formats.medium.url)
+      : sourceUrl,
+  };
+});
 ---
 
 <div class="mb-16">
@@ -23,8 +34,8 @@ const imgs = images.map((i) => ({
     class="columns-2 gap-5 mx-2 sm:gap-8 md:columns-2 lg:columns-3 [&>img:not(:first-child)]:mt-8"
   >
     {
-      imgs.map(({ alternativeText, url }) => (
-        <PictureMosaicItem alt={alternativeText} src={url} />
+      imgs.map(({ alternativeText, url, preview }) => (
+        <PictureMosaicItem alt={alternativeText} src={preview} />
       ))
     }
   </div>
