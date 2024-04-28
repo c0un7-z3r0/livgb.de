@@ -1753,7 +1753,7 @@ export const Image = gql`
 export const MosaicImageGallery = gql`
     fragment MosaicImageGallery on ComponentPageMosaicImageGallery {
   Narrow
-  Images {
+  Images(pagination: {pageSize: 20}) {
     ...Image
   }
 }

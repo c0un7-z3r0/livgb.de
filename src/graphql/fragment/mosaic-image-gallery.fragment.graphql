@@ -1,6 +1,6 @@
 fragment MosaicImageGallery on ComponentPageMosaicImageGallery {
   Narrow
-  Images {
+  Images(pagination: { pageSize: 20 }) {
     ...Image
   }
 }
