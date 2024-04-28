@@ -2,5 +2,4 @@ fragment HeroImage on ComponentPageHeroImage {
   Image {
     ...Image
   }
-  Narrow
 }

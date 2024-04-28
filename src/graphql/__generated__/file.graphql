@@ -106,13 +106,11 @@ input ComponentLayoutSocialLinkInput {
 
 type ComponentPageHeroImage {
   Image: ComponentPageMedia
-  Narrow: Boolean
   id: ID!
 }
 
 input ComponentPageHeroImageFiltersInput {
   Image: ComponentPageMediaFiltersInput
-  Narrow: BooleanFilterInput
   and: [ComponentPageHeroImageFiltersInput]
   not: ComponentPageHeroImageFiltersInput
   or: [ComponentPageHeroImageFiltersInput]
@@ -120,7 +118,6 @@ input ComponentPageHeroImageFiltersInput {
 
 input ComponentPageHeroImageInput {
   Image: ComponentPageMediaInput
-  Narrow: Boolean
   id: ID
 }
 
@@ -190,9 +187,9 @@ input DateTimeFilterInput {
 }
 
 enum ENUM_COMPONENTLAYOUTSOCIALLINK_ICON {
-  facebook
+  behance
   instagram
-  youtube
+  mail
 }
 
 enum ENUM_NAVIGATIONNAVIGATIONITEM_TYPE {
@@ -259,7 +256,6 @@ input FrontpageInput {
 union GenericMorph = ComponentLayoutContact | ComponentLayoutLink | ComponentLayoutNavBar | ComponentLayoutSocialLink | ComponentPageHeroImage | ComponentPageMarkdown | ComponentPageMedia | ComponentPageMosaicImageGallery | Frontpage | Global | I18NLocale | Imprint | NavigationAudience | NavigationNavigation | NavigationNavigationItem | NavigationNavigationsItemsRelated | Page | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser
 
 type Global {
-  Favicon: UploadFileEntityResponse!
   Sidebar: ComponentLayoutNavBar
   Title: String!
   createdAt: DateTime
@@ -277,7 +273,6 @@ type GlobalEntityResponse {
 }
 
 input GlobalInput {
-  Favicon: ID
   Sidebar: ComponentLayoutNavBarInput
   Title: String
   publishedAt: DateTime
