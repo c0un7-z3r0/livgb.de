@@ -1,12 +1,9 @@
-import type { GetFrontPageQuery } from "../graphql/__generated__/operations";
+import type { ImageFragment } from "../graphql/__generated__/operations";
 
-export type Image =
-  GetFrontPageQuery["frontpage"]["data"]["attributes"]["Images"][0];
-
-export const getFileAttributes = (file: Image) => {
+export const getFileAttributes = (file: ImageFragment) => {
   return file.File.data.attributes;
 };
-export const getImageUrl = (file: Image) => {
+export const getImageUrl = (file: ImageFragment) => {
   const { url } = getFileAttributes(file);
   return buildImageUrl(url);
 };

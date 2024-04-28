@@ -1,14 +1,11 @@
 ---
-import {
-  getFileAttributes,
-  getImageUrl,
-  type Image,
-} from "../lib/image.helper";
+import type { ImageFragment } from "../graphql/__generated__/operations";
+import { getFileAttributes, getImageUrl } from "../lib/image.helper";
 import PictureMosaicItem from "./PictureMosaicItem.astro";
 import { Icon } from "astro-icon/components";
 
 interface Props {
-  images: Image[];
+  images: ImageFragment[];
 }
 
 const { images } = Astro.props;
@@ -20,7 +17,7 @@ const imgs = images.map((i) => ({
 }));
 ---
 
-<div>
+<div class="mb-16">
   <div
     id="mosaic-container"
     class="columns-2 gap-5 mx-2 sm:gap-8 md:columns-2 lg:columns-3 [&>img:not(:first-child)]:mt-8"

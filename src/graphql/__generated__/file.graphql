@@ -69,8 +69,8 @@ input ComponentLayoutLinkInput {
 }
 
 type ComponentLayoutNavBar {
-  DataProtectionLink: ComponentLayoutLink
-  ImprintLink: ComponentLayoutLink
+  DataProtectionLink: ComponentLayoutLink!
+  ImprintLink: ComponentLayoutLink!
   Links(filters: ComponentLayoutLinkFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): [ComponentLayoutLink]
   SocialLinks(filters: ComponentLayoutSocialLinkFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): [ComponentLayoutSocialLink]
   id: ID!
@@ -106,11 +106,13 @@ input ComponentLayoutSocialLinkInput {
 
 type ComponentPageHeroImage {
   Image: ComponentPageMedia
+  Narrow: Boolean
   id: ID!
 }
 
 input ComponentPageHeroImageFiltersInput {
   Image: ComponentPageMediaFiltersInput
+  Narrow: BooleanFilterInput
   and: [ComponentPageHeroImageFiltersInput]
   not: ComponentPageHeroImageFiltersInput
   or: [ComponentPageHeroImageFiltersInput]
@@ -118,6 +120,7 @@ input ComponentPageHeroImageFiltersInput {
 
 input ComponentPageHeroImageInput {
   Image: ComponentPageMediaInput
+  Narrow: Boolean
   id: ID
 }
 
@@ -146,11 +149,13 @@ input ComponentPageMediaInput {
 
 type ComponentPageMosaicImageGallery {
   Images(filters: ComponentPageMediaFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): [ComponentPageMedia]
+  Narrow: Boolean
   id: ID!
 }
 
 input ComponentPageMosaicImageGalleryInput {
   Images: [ComponentPageMediaInput]
+  Narrow: Boolean
   id: ID
 }
 

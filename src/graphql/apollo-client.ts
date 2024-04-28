@@ -1,6 +1,8 @@
 import { ApolloClient, InMemoryCache } from "@apollo/client/core";
 import introspectionResult from "./__generated__/fragment-matcher";
 
+console.log(import.meta.env.STRAPI_URL);
+
 const client = new ApolloClient({
   uri: `${import.meta.env.STRAPI_URL}/graphql`,
   ssrMode: true,

@@ -4,7 +4,7 @@ import type {
   LinkFragment,
   SocialLinkFragment,
 } from "../graphql/__generated__/operations";
-import { data } from "autoprefixer";
+
 interface Props {
   links: LinkFragment[];
   socialLinks: SocialLinkFragment[];
@@ -59,7 +59,7 @@ const currentYear = new Date().getFullYear();
               referrerpolicy="no-referrer"
               class="flex items-center px-1 hover:text-gray-500"
             >
-              <Icon name={`mdi:${socialLink.Icon}`} />
+              <Icon name={`ant-design:${socialLink.Icon}-outlined`} />
             </a>
           ))
         }

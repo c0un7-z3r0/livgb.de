@@ -11,7 +11,7 @@ const { heroImage } = Astro.props;
 
 <Img
   src={`${import.meta.env.STRAPI_URL}${heroImage.Image.File.data.attributes.url}`}
+  alt={heroImage.Image.File.data.attributes.alternativeText}
   layout="fullWidth"
   format="webp"
-  alt={heroImage.Image.File.data.attributes.alternativeText}
 />

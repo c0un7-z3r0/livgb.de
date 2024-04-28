@@ -1,9 +1,9 @@
 ---
 import { marked } from "marked";
-import type { MarkdownComponentFragment } from "../graphql/__generated__/operations";
+import type { MarkdownTextFragment } from "../graphql/__generated__/operations";
 
 interface Props {
-  data: MarkdownComponentFragment;
+  data: MarkdownTextFragment;
 }
 
 const { data } = Astro.props;

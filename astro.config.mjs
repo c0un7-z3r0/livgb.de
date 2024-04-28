@@ -14,13 +14,12 @@ export default defineConfig({
       svgoOptions: {},
     }),
     astroImageTools,
-    react(),
   ],
   output: "server",
   prefetch: {
     prefetchAll: true,
   },
   adapter: node({
-    mode: "standalone",
+    mode: "middleware",
   }),
 });

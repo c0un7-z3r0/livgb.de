@@ -93,8 +93,8 @@ export type ComponentLayoutLinkInput = {
 
 export type ComponentLayoutNavBar = {
   __typename?: 'ComponentLayoutNavBar';
-  DataProtectionLink?: Maybe<ComponentLayoutLink>;
-  ImprintLink?: Maybe<ComponentLayoutLink>;
+  DataProtectionLink: ComponentLayoutLink;
+  ImprintLink: ComponentLayoutLink;
   Links?: Maybe<Array<Maybe<ComponentLayoutLink>>>;
   SocialLinks?: Maybe<Array<Maybe<ComponentLayoutSocialLink>>>;
   id: Scalars['ID']['output'];
@@ -146,11 +146,13 @@ export type ComponentLayoutSocialLinkInput = {
 export type ComponentPageHeroImage = {
   __typename?: 'ComponentPageHeroImage';
   Image?: Maybe<ComponentPageMedia>;
+  Narrow?: Maybe<Scalars['Boolean']['output']>;
   id: Scalars['ID']['output'];
 };
 
 export type ComponentPageHeroImageFiltersInput = {
   Image?: InputMaybe<ComponentPageMediaFiltersInput>;
+  Narrow?: InputMaybe<BooleanFilterInput>;
   and?: InputMaybe<Array<InputMaybe<ComponentPageHeroImageFiltersInput>>>;
   not?: InputMaybe<ComponentPageHeroImageFiltersInput>;
   or?: InputMaybe<Array<InputMaybe<ComponentPageHeroImageFiltersInput>>>;
@@ -158,6 +160,7 @@ export type ComponentPageHeroImageFiltersInput = {
 
 export type ComponentPageHeroImageInput = {
   Image?: InputMaybe<ComponentPageMediaInput>;
+  Narrow?: InputMaybe<Scalars['Boolean']['input']>;
   id?: InputMaybe<Scalars['ID']['input']>;
 };
 
@@ -189,6 +192,7 @@ export type ComponentPageMediaInput = {
 export type ComponentPageMosaicImageGallery = {
   __typename?: 'ComponentPageMosaicImageGallery';
   Images?: Maybe<Array<Maybe<ComponentPageMedia>>>;
+  Narrow?: Maybe<Scalars['Boolean']['output']>;
   id: Scalars['ID']['output'];
 };
 
@@ -201,6 +205,7 @@ export type ComponentPageMosaicImageGalleryImagesArgs = {
 
 export type ComponentPageMosaicImageGalleryInput = {
   Images?: InputMaybe<Array<InputMaybe<ComponentPageMediaInput>>>;
+  Narrow?: InputMaybe<Scalars['Boolean']['input']>;
   id?: InputMaybe<Scalars['ID']['input']>;
 };
 
@@ -1640,27 +1645,27 @@ export type UsersPermissionsUserRelationResponseCollection = {
 
 export type ContactFragment = { __typename?: 'ComponentLayoutContact', FirstName?: string | null, LastName?: string | null, email?: string | null, Street?: string | null, PostCode?: string | null, City?: string | null, Telefon?: string | null };
 
-export type HeroImageFragment = { __typename?: 'ComponentPageHeroImage', Image?: { __typename?: 'ComponentPageMedia', File?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } | null } | null };
+export type HeroImageFragment = { __typename?: 'ComponentPageHeroImage', Narrow?: boolean | null, Image?: { __typename?: 'ComponentPageMedia', File?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null, formats?: any | null } | null } | null } | null } | null };
 
-export type ImageFragment = { __typename?: 'ComponentPageMedia', File?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } | null };
+export type ImageFragment = { __typename?: 'ComponentPageMedia', File?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null, formats?: any | null } | null } | null } | null };
 
 export type LinkFragment = { __typename?: 'ComponentLayoutLink', url?: string | null, text?: string | null, page?: { __typename?: 'PageEntityResponse', data?: { __typename?: 'PageEntity', attributes?: { __typename?: 'Page', slug: string } | null } | null } | null };
 
 export type MarkdownTextFragment = { __typename: 'ComponentPageMarkdown', content: string };
 
-export type MediaFragment = { __typename: 'ComponentPageMedia', File?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } | null };
+export type MediaFragment = { __typename: 'ComponentPageMedia', File?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null, formats?: any | null } | null } | null } | null };
 
-export type MosaicImageGalleryFragment = { __typename?: 'ComponentPageMosaicImageGallery', Images?: Array<{ __typename?: 'ComponentPageMedia', File?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } | null } | null> | null };
+export type MosaicImageGalleryFragment = { __typename?: 'ComponentPageMosaicImageGallery', Narrow?: boolean | null, Images?: Array<{ __typename?: 'ComponentPageMedia', File?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null, formats?: any | null } | null } | null } | null } | null> | null };
 
-export type NavbarFragment = { __typename?: 'ComponentLayoutNavBar', SocialLinks?: Array<{ __typename?: 'ComponentLayoutSocialLink', url?: string | null, Icon: Enum_Componentlayoutsociallink_Icon } | null> | null, Links?: Array<{ __typename?: 'ComponentLayoutLink', url?: string | null, text?: string | null, page?: { __typename?: 'PageEntityResponse', data?: { __typename?: 'PageEntity', attributes?: { __typename?: 'Page', slug: string } | null } | null } | null } | null> | null, ImprintLink?: { __typename?: 'ComponentLayoutLink', url?: string | null, text?: string | null, page?: { __typename?: 'PageEntityResponse', data?: { __typename?: 'PageEntity', attributes?: { __typename?: 'Page', slug: string } | null } | null } | null } | null, DataProtectionLink?: { __typename?: 'ComponentLayoutLink', url?: string | null, text?: string | null, page?: { __typename?: 'PageEntityResponse', data?: { __typename?: 'PageEntity', attributes?: { __typename?: 'Page', slug: string } | null } | null } | null } | null };
+export type NavbarFragment = { __typename?: 'ComponentLayoutNavBar', SocialLinks?: Array<{ __typename?: 'ComponentLayoutSocialLink', url?: string | null, Icon: Enum_Componentlayoutsociallink_Icon } | null> | null, Links?: Array<{ __typename?: 'ComponentLayoutLink', url?: string | null, text?: string | null, page?: { __typename?: 'PageEntityResponse', data?: { __typename?: 'PageEntity', attributes?: { __typename?: 'Page', slug: string } | null } | null } | null } | null> | null, ImprintLink: { __typename?: 'ComponentLayoutLink', url?: string | null, text?: string | null, page?: { __typename?: 'PageEntityResponse', data?: { __typename?: 'PageEntity', attributes?: { __typename?: 'Page', slug: string } | null } | null } | null }, DataProtectionLink: { __typename?: 'ComponentLayoutLink', url?: string | null, text?: string | null, page?: { __typename?: 'PageEntityResponse', data?: { __typename?: 'PageEntity', attributes?: { __typename?: 'Page', slug: string } | null } | null } | null } };
 
-type PageBody_ComponentPageHeroImage_Fragment = { __typename: 'ComponentPageHeroImage', Image?: { __typename?: 'ComponentPageMedia', File?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } | null } | null };
+type PageBody_ComponentPageHeroImage_Fragment = { __typename: 'ComponentPageHeroImage', Narrow?: boolean | null, Image?: { __typename?: 'ComponentPageMedia', File?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null, formats?: any | null } | null } | null } | null } | null };
 
 type PageBody_ComponentPageMarkdown_Fragment = { __typename: 'ComponentPageMarkdown', content: string };
 
-type PageBody_ComponentPageMedia_Fragment = { __typename: 'ComponentPageMedia', File?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } | null };
+type PageBody_ComponentPageMedia_Fragment = { __typename: 'ComponentPageMedia', File?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null, formats?: any | null } | null } | null } | null };
 
-type PageBody_ComponentPageMosaicImageGallery_Fragment = { __typename: 'ComponentPageMosaicImageGallery', Images?: Array<{ __typename?: 'ComponentPageMedia', File?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } | null } | null> | null };
+type PageBody_ComponentPageMosaicImageGallery_Fragment = { __typename: 'ComponentPageMosaicImageGallery', Narrow?: boolean | null, Images?: Array<{ __typename?: 'ComponentPageMedia', File?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null, formats?: any | null } | null } | null } | null } | null> | null };
 
 type PageBody_Error_Fragment = { __typename: 'Error' };
 
@@ -1671,12 +1676,12 @@ export type SocialLinkFragment = { __typename?: 'ComponentLayoutSocialLink', url
 export type GetFrontpageQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetFrontpageQuery = { __typename?: 'Query', frontpage?: { __typename?: 'FrontpageEntityResponse', data?: { __typename?: 'FrontpageEntity', attributes?: { __typename?: 'Frontpage', Gallery?: { __typename?: 'ComponentPageMosaicImageGallery', Images?: Array<{ __typename?: 'ComponentPageMedia', File?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } | null } | null> | null } | null } | null } | null } | null };
+export type GetFrontpageQuery = { __typename?: 'Query', frontpage?: { __typename?: 'FrontpageEntityResponse', data?: { __typename?: 'FrontpageEntity', attributes?: { __typename?: 'Frontpage', Gallery?: { __typename?: 'ComponentPageMosaicImageGallery', Narrow?: boolean | null, Images?: Array<{ __typename?: 'ComponentPageMedia', File?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null, formats?: any | null } | null } | null } | null } | null> | null } | null } | null } | null } | null };
 
 export type GetGlobalDataQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetGlobalDataQuery = { __typename?: 'Query', imprint?: { __typename?: 'ImprintEntityResponse', data?: { __typename?: 'ImprintEntity', attributes?: { __typename?: 'Imprint', Contact?: { __typename?: 'ComponentLayoutContact', FirstName?: string | null, LastName?: string | null } | null } | null } | null } | null, global?: { __typename?: 'GlobalEntityResponse', data?: { __typename?: 'GlobalEntity', attributes?: { __typename?: 'Global', Title: string, Sidebar?: { __typename?: 'ComponentLayoutNavBar', SocialLinks?: Array<{ __typename?: 'ComponentLayoutSocialLink', url?: string | null, Icon: Enum_Componentlayoutsociallink_Icon } | null> | null, Links?: Array<{ __typename?: 'ComponentLayoutLink', url?: string | null, text?: string | null, page?: { __typename?: 'PageEntityResponse', data?: { __typename?: 'PageEntity', attributes?: { __typename?: 'Page', slug: string } | null } | null } | null } | null> | null, ImprintLink?: { __typename?: 'ComponentLayoutLink', url?: string | null, text?: string | null, page?: { __typename?: 'PageEntityResponse', data?: { __typename?: 'PageEntity', attributes?: { __typename?: 'Page', slug: string } | null } | null } | null } | null, DataProtectionLink?: { __typename?: 'ComponentLayoutLink', url?: string | null, text?: string | null, page?: { __typename?: 'PageEntityResponse', data?: { __typename?: 'PageEntity', attributes?: { __typename?: 'Page', slug: string } | null } | null } | null } | null } | null } | null } | null } | null };
+export type GetGlobalDataQuery = { __typename?: 'Query', imprint?: { __typename?: 'ImprintEntityResponse', data?: { __typename?: 'ImprintEntity', attributes?: { __typename?: 'Imprint', Contact?: { __typename?: 'ComponentLayoutContact', FirstName?: string | null, LastName?: string | null } | null } | null } | null } | null, global?: { __typename?: 'GlobalEntityResponse', data?: { __typename?: 'GlobalEntity', attributes?: { __typename?: 'Global', Title: string, Sidebar?: { __typename?: 'ComponentLayoutNavBar', SocialLinks?: Array<{ __typename?: 'ComponentLayoutSocialLink', url?: string | null, Icon: Enum_Componentlayoutsociallink_Icon } | null> | null, Links?: Array<{ __typename?: 'ComponentLayoutLink', url?: string | null, text?: string | null, page?: { __typename?: 'PageEntityResponse', data?: { __typename?: 'PageEntity', attributes?: { __typename?: 'Page', slug: string } | null } | null } | null } | null> | null, ImprintLink: { __typename?: 'ComponentLayoutLink', url?: string | null, text?: string | null, page?: { __typename?: 'PageEntityResponse', data?: { __typename?: 'PageEntity', attributes?: { __typename?: 'Page', slug: string } | null } | null } | null }, DataProtectionLink: { __typename?: 'ComponentLayoutLink', url?: string | null, text?: string | null, page?: { __typename?: 'PageEntityResponse', data?: { __typename?: 'PageEntity', attributes?: { __typename?: 'Page', slug: string } | null } | null } | null } } | null } | null } | null } | null };
 
 export type GetImprintPageQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -1688,7 +1693,7 @@ export type GetPageQueryVariables = Exact<{
 }>;
 
 
-export type GetPageQuery = { __typename?: 'Query', pages?: { __typename?: 'PageEntityResponseCollection', data: Array<{ __typename?: 'PageEntity', attributes?: { __typename?: 'Page', Title: string, HidePageTitle?: boolean | null, HeroImage?: { __typename?: 'ComponentPageHeroImage', Image?: { __typename?: 'ComponentPageMedia', File?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } | null } | null } | null, Body?: Array<{ __typename: 'ComponentPageHeroImage', Image?: { __typename?: 'ComponentPageMedia', File?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } | null } | null } | { __typename: 'ComponentPageMarkdown', content: string } | { __typename: 'ComponentPageMedia', File?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } | null } | { __typename: 'ComponentPageMosaicImageGallery', Images?: Array<{ __typename?: 'ComponentPageMedia', File?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null } | null } | null } | null> | null } | { __typename: 'Error' } | null> | null } | null }> } | null };
+export type GetPageQuery = { __typename?: 'Query', pages?: { __typename?: 'PageEntityResponseCollection', data: Array<{ __typename?: 'PageEntity', attributes?: { __typename?: 'Page', Title: string, HidePageTitle?: boolean | null, HeroImage?: { __typename?: 'ComponentPageHeroImage', Narrow?: boolean | null, Image?: { __typename?: 'ComponentPageMedia', File?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null, formats?: any | null } | null } | null } | null } | null } | null, Body?: Array<{ __typename: 'ComponentPageHeroImage', Narrow?: boolean | null, Image?: { __typename?: 'ComponentPageMedia', File?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null, formats?: any | null } | null } | null } | null } | null } | { __typename: 'ComponentPageMarkdown', content: string } | { __typename: 'ComponentPageMedia', File?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null, formats?: any | null } | null } | null } | null } | { __typename: 'ComponentPageMosaicImageGallery', Narrow?: boolean | null, Images?: Array<{ __typename?: 'ComponentPageMedia', File?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', attributes?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null, formats?: any | null } | null } | null } | null } | null> | null } | { __typename: 'Error' } | null> | null } | null }> } | null };
 
 export const Contact = gql`
     fragment Contact on ComponentLayoutContact {
@@ -1744,6 +1749,7 @@ export const Image = gql`
       attributes {
         url
         alternativeText
+        formats
       }
     }
   }
@@ -1751,6 +1757,7 @@ export const Image = gql`
     `;
 export const MosaicImageGallery = gql`
     fragment MosaicImageGallery on ComponentPageMosaicImageGallery {
+  Narrow
   Images {
     ...Image
   }
@@ -1773,6 +1780,7 @@ export const HeroImage = gql`
   Image {
     ...Image
   }
+  Narrow
 }
     ${Image}`;
 export const PageBody = gql`

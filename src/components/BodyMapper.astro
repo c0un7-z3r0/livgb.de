@@ -25,21 +25,26 @@ const { content } = Astro.props;
       case "ComponentPageMedia":
         return (
           <NarrowWrapper>
-            <Image data={pageBody} />;
+            <div class="mb-8">
+              <Image data={pageBody} />
+            </div>
           </NarrowWrapper>
         );
       case "ComponentPageHeroImage":
         return (
-          <NarrowWrapper>
-            <HeroImage heroImage={pageBody} />;
-          </NarrowWrapper>
+          <div class="mb-8">
+            <HeroImage heroImage={pageBody} />
+          </div>
         );
       case "ComponentPageMosaicImageGallery":
-        return (
-          <NarrowWrapper>
-            <MosaicContainer images={pageBody.Images} />{" "}
-          </NarrowWrapper>
-        );
+        if (pageBody.Narrow) {
+          return (
+            <NarrowWrapper>
+              <MosaicContainer images={pageBody.Images} />
+            </NarrowWrapper>
+          );
+        }
+        return <MosaicContainer images={pageBody.Images} />;
 
       default:
         break;

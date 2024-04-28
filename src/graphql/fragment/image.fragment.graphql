@@ -4,6 +4,7 @@ fragment Image on ComponentPageMedia {
       attributes {
         url
         alternativeText
+        formats
       }
     }
   }
