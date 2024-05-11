@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.0.1](https://github.com/c0un7-z3r0/livgb.de/compare/v1.0.0...v1.0.1) (2024-05-11)
+
+
+### Bug Fixes
+
+* add fallback for missing large image ([5b9221a](https://github.com/c0un7-z3r0/livgb.de/commit/5b9221a352b4c3e3edeaf34f5076b334aa0b7893))
+* remove astro react ([7da12a3](https://github.com/c0un7-z3r0/livgb.de/commit/7da12a377f62f3b49082e39503ecb412a0f901d7))
+
 ## 1.0.0 (2024-05-11)
 
 
