@@ -16,28 +16,35 @@ interface Props {
 
 const { images } = Astro.props;
 
-const imgs = await Promise.all(
-  images.map(async (i) => {
-    const attr = getFileAttributes(i);
-    const sourceUrl = getImageUrl(i);
+function mapImages(imageList: ImageFragment[]) {
+  return Promise.all(
+    imageList.map(async (i) => {
+      const attr = getFileAttributes(i);
+      const sourceUrl = getImageUrl(i);
 
-    const largeImage = {
-      height: attr.formats.large?.height || attr.height,
-      width: attr.formats.large?.width || attr.width,
-      url: await importImage(
-        buildImageUrl(attr.formats.large?.url || attr.url),
-      ),
-    };
-    return {
-      url: sourceUrl,
-      alternativeText: getFileAttributes(i).alternativeText,
-      preview: attr.formats.medium
-        ? buildImageUrl(attr.formats.medium.url)
-        : sourceUrl,
-      large: largeImage,
-    };
-  }),
-);
+      const largeImage = {
+        height: attr.formats.large?.height || attr.height,
+        width: attr.formats.large?.width || attr.width,
+        url: await importImage(
+          buildImageUrl(attr.formats.large?.url || attr.url),
+        ),
+      };
+      return {
+        url: sourceUrl,
+        alternativeText: getFileAttributes(i).alternativeText,
+        preview: attr.formats.medium
+          ? buildImageUrl(attr.formats.medium.url)
+          : sourceUrl,
+        large: largeImage,
+      };
+    }),
+  ).catch((err) => {
+    logger.error("Failed to map images", { error: err.message });
+    return [];
+  });
+}
+
+const imgs = await mapImages(images);
 logger.info("PhotoSwipe", { imgs });
 ---
 
