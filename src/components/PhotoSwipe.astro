@@ -8,6 +8,7 @@ import {
   getImageUrl,
 } from "../lib/image.helper";
 import PictureMosaicItem from "./PictureMosaicItem.astro";
+import { logger } from "../lib/logger";
 
 interface Props {
   images: ImageFragment[];
@@ -37,6 +38,7 @@ const imgs = await Promise.all(
     };
   }),
 );
+logger.info("PhotoSwipe", { imgs });
 ---
 
 <div id="lightgallery">
