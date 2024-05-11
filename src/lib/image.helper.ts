@@ -10,9 +10,17 @@ export const getImageUrl = (file: ImageFragment) => {
   return buildImageUrl(url);
 };
 
+export interface MappedImage {
+  url: string;
+  alternativeText: string;
+  preview: string;
+  large: { height: string; width: string; url: string };
+}
 export const buildImageUrl = (path: string) =>
   `${import.meta.env.STRAPI_URL}${path}`;
-export async function mapImages(imageList: ImageFragment[]) {
+export async function mapImages(
+  imageList: ImageFragment[],
+): Promise<MappedImage[]> {
   logger.info("Mapping images for image gallery", { total: imageList.length });
   return Promise.all(
     imageList.map(async (i) => {

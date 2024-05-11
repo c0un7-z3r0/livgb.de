@@ -1,7 +1,7 @@
 ---
 import "photoswipe/style.css";
 import type { ImageFragment } from "../graphql/__generated__/operations";
-import { mapImages } from "../lib/image.helper";
+import { mapImages, type MappedImage } from "../lib/image.helper";
 import PictureMosaicItem from "./PictureMosaicItem.astro";
 import { logger } from "../lib/logger";
 
@@ -10,8 +10,15 @@ interface Props {
 }
 
 const { images } = Astro.props;
+let imgs: MappedImage[] = [];
+try {
+  imgs = await mapImages(images);
+} catch (err) {
+  logger.error("Failed to map images for photo swipe gallery", {
+    error: err.message,
+  });
+}
 
-const imgs = await mapImages(images);
 logger.info("Photo Swipe Gallery rendering", { images: imgs.length });
 ---
 
