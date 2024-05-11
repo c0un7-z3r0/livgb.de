@@ -3,7 +3,6 @@ import tailwind from "@astrojs/tailwind";
 import icon from "astro-icon";
 import { astroImageTools } from "astro-imagetools";
 import { defineConfig } from "astro/config";
-import react from "@astrojs/react";
 import robotsTxt from "astro-robots-txt";
 import partytown from "@astrojs/partytown";
 import playformCompress from "@playform/compress";
