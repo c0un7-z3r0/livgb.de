@@ -12,16 +12,23 @@ import playformInline from "@playform/inline";
 // https://astro.build/config
 export default defineConfig({
   site: "https://livgb.de",
-  integrations: [tailwind(), icon({
-    svgoOptions: {}
-  }), astroImageTools, robotsTxt({
-    sitemap: false
-  }), playformCompress(), playformInline()],
+  integrations: [
+    tailwind(),
+    icon({
+      svgoOptions: {},
+    }),
+    astroImageTools,
+    robotsTxt({
+      sitemap: false,
+    }),
+    playformCompress(),
+    playformInline(),
+  ],
   output: "server",
   prefetch: {
-    prefetchAll: true
+    prefetchAll: true,
   },
   adapter: node({
-    mode: "middleware"
-  })
+    mode: "middleware",
+  }),
 });

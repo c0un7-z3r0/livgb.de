@@ -1,6 +1,18 @@
 const express = require("express");
+const winston = require("winston");
 
 const app = express();
+
+const logger = winston.createLogger({
+  level: "info",
+  format: winston.format.json(),
+  transports: [
+    new winston.transports.Console(),
+    new winston.transports.File({
+      filename: "logs/debug.log",
+    }),
+  ],
+});
 
 const base = "/";
 
@@ -8,8 +20,9 @@ app.use(base, express.static("dist/client/"));
 
 app.use(async (req, res) => {
   (await import("./dist/server/entry.mjs")).handler(req, res, async (err) => {
-    console.log("ssrHandler ->");
+    logger.info({ url: req.url });
     if (err) {
+      logger.error({ err });
       res.writeHead(500);
       res.end(err.toString());
     } else {
