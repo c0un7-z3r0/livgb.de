@@ -1,0 +1,70 @@
+---
+import "photoswipe/style.css";
+import type { ImageFragment } from "../graphql/__generated__/operations";
+import { importImage } from "astro-imagetools/api";
+import {
+  buildImageUrl,
+  getFileAttributes,
+  getImageUrl,
+} from "../lib/image.helper";
+import PictureMosaicItem from "./PictureMosaicItem.astro";
+
+interface Props {
+  images: ImageFragment[];
+}
+
+const { images } = Astro.props;
+
+const imgs = await Promise.all(
+  images.map(async (i) => {
+    const attr = getFileAttributes(i);
+    const sourceUrl = getImageUrl(i);
+
+    return {
+      url: sourceUrl,
+      alternativeText: getFileAttributes(i).alternativeText,
+      preview: attr.formats.medium
+        ? buildImageUrl(attr.formats.medium.url)
+        : sourceUrl,
+      height: i.File.data.attributes.formats.large.height,
+      width: i.File.data.attributes.formats.large.width,
+      large: await importImage(buildImageUrl(attr.formats.large.url)),
+    };
+  }),
+);
+---
+
+<div id="lightgallery">
+  <div
+    id="mosaic-container"
+    class="columns-2 gap-5 mx-2 sm:gap-8 md:columns-2 lg:columns-3 [&>a>img:not(:first-child)]:mt-8"
+  >
+    {
+      imgs.map(({ alternativeText, url, large, preview, height, width }) => (
+        <a
+          data-pswp-src={large}
+          data-pswp-width={width}
+          data-pswp-height={height}
+        >
+          <PictureMosaicItem alt={alternativeText} src={preview} />
+        </a>
+      ))
+    }
+  </div>
+</div>
+<script>
+  import PhotoSwipeLightbox from "photoswipe/lightbox";
+
+  const lightbox = new PhotoSwipeLightbox({
+    gallery: "#mosaic-container",
+    children: "a",
+    pswpModule: () => import("photoswipe"),
+    preload: [2, 2],
+    tapAction: "next",
+    doubleTapAction: false,
+    bgClickAction: "close",
+    bgOpacity: 0.9,
+  });
+  console.log("--photswipe");
+  lightbox.init();
+</script>

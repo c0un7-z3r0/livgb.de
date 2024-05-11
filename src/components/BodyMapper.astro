@@ -1,6 +1,6 @@
 ---
-import MosaicContainer from "../components/MosaicContainer.astro";
 import Image from "./Image.astro";
+import PhotoSwipe from "./PhotoSwipe.astro";
 import MarkdownText from "./MarkdownText.astro";
 import NarrowWrapper from "../layouts/NarrowWrapper.astro";
 import type { PageBodyFragment } from "../graphql/__generated__/operations";
@@ -40,11 +40,11 @@ const { content } = Astro.props;
         if (pageBody.Narrow) {
           return (
             <NarrowWrapper>
-              <MosaicContainer images={pageBody.Images} />
+              <PhotoSwipe images={pageBody.Images} />
             </NarrowWrapper>
           );
         }
-        return <MosaicContainer images={pageBody.Images} />;
+        return <PhotoSwipe images={pageBody.Images} />;
 
       default:
         break;

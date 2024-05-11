@@ -7,6 +7,7 @@ import {
   GetFrontpage,
   type GetFrontpageQuery,
 } from "../graphql/__generated__/operations";
+import PhotoSwipe from "../components/PhotoSwipe.astro";
 
 const { data } = await client.query<GetFrontpageQuery>({
   fetchPolicy: "no-cache",
@@ -17,5 +18,5 @@ const images = data.frontpage.data.attributes.Gallery.Images;
 ---
 
 <Layout>
-  <MosaicContainer images={images} />
+  <PhotoSwipe images={images} />
 </Layout>
