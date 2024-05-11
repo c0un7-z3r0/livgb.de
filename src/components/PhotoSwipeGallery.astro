@@ -1,12 +1,7 @@
 ---
 import "photoswipe/style.css";
 import type { ImageFragment } from "../graphql/__generated__/operations";
-import { importImage } from "astro-imagetools/api";
-import {
-  buildImageUrl,
-  getFileAttributes,
-  getImageUrl,
-} from "../lib/image.helper";
+import { mapImages } from "../lib/image.helper";
 import PictureMosaicItem from "./PictureMosaicItem.astro";
 import { logger } from "../lib/logger";
 
@@ -16,36 +11,8 @@ interface Props {
 
 const { images } = Astro.props;
 
-function mapImages(imageList: ImageFragment[]) {
-  return Promise.all(
-    imageList.map(async (i) => {
-      const attr = getFileAttributes(i);
-      const sourceUrl = getImageUrl(i);
-
-      const largeImage = {
-        height: attr.formats.large?.height || attr.height,
-        width: attr.formats.large?.width || attr.width,
-        url: await importImage(
-          buildImageUrl(attr.formats.large?.url || attr.url),
-        ),
-      };
-      return {
-        url: sourceUrl,
-        alternativeText: getFileAttributes(i).alternativeText,
-        preview: attr.formats.medium
-          ? buildImageUrl(attr.formats.medium.url)
-          : sourceUrl,
-        large: largeImage,
-      };
-    }),
-  ).catch((err) => {
-    logger.error("Failed to map images", { error: err.message });
-    return [];
-  });
-}
-
 const imgs = await mapImages(images);
-logger.info("PhotoSwipe", { imgs });
+logger.info("Photo Swipe Gallery rendering", { images: imgs.length });
 ---
 
 <div id="lightgallery">
@@ -66,6 +33,7 @@ logger.info("PhotoSwipe", { imgs });
     }
   </div>
 </div>
+
 <script>
   import PhotoSwipeLightbox from "photoswipe/lightbox";
 

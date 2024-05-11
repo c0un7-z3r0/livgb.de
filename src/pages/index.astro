@@ -5,7 +5,7 @@ import {
   GetFrontpage,
   type GetFrontpageQuery,
 } from "../graphql/__generated__/operations";
-import PhotoSwipe from "../components/PhotoSwipe.astro";
+import PhotoSwipeGallery from "../components/PhotoSwipeGallery.astro";
 import { logger } from "../lib/logger.ts";
 
 const { data } = await client.query<GetFrontpageQuery>({
@@ -14,9 +14,11 @@ const { data } = await client.query<GetFrontpageQuery>({
 });
 
 const images = data.frontpage.data.attributes.Gallery.Images;
-logger.info("Frontpage images", { images: images.length });
+logger.info("Frontpage images", {
+  images: images.map((i) => i.File.data.attributes.url),
+});
 ---
 
 <Layout>
-  <PhotoSwipe images={images} />
+  <PhotoSwipeGallery images={images} />
 </Layout>

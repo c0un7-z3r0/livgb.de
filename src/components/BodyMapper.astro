@@ -1,6 +1,6 @@
 ---
 import Image from "./Image.astro";
-import PhotoSwipe from "./PhotoSwipe.astro";
+import PhotoSwipeGallery from "./PhotoSwipeGallery.astro";
 import MarkdownText from "./MarkdownText.astro";
 import NarrowWrapper from "../layouts/NarrowWrapper.astro";
 import type { PageBodyFragment } from "../graphql/__generated__/operations";
@@ -40,11 +40,11 @@ const { content } = Astro.props;
         if (pageBody.Narrow) {
           return (
             <NarrowWrapper>
-              <PhotoSwipe images={pageBody.Images} />
+              <PhotoSwipeGallery images={pageBody.Images} />
             </NarrowWrapper>
           );
         }
-        return <PhotoSwipe images={pageBody.Images} />;
+        return <PhotoSwipeGallery images={pageBody.Images} />;
 
       default:
         break;
