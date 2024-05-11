@@ -20,15 +20,20 @@ const imgs = await Promise.all(
     const attr = getFileAttributes(i);
     const sourceUrl = getImageUrl(i);
 
+    const largeImage = {
+      height: attr.formats.large?.height || attr.height,
+      width: attr.formats.large?.width || attr.width,
+      url: await importImage(
+        buildImageUrl(attr.formats.large?.url || attr.url),
+      ),
+    };
     return {
       url: sourceUrl,
       alternativeText: getFileAttributes(i).alternativeText,
       preview: attr.formats.medium
         ? buildImageUrl(attr.formats.medium.url)
         : sourceUrl,
-      height: i.File.data.attributes.formats.large.height,
-      width: i.File.data.attributes.formats.large.width,
-      large: await importImage(buildImageUrl(attr.formats.large.url)),
+      large: largeImage,
     };
   }),
 );
@@ -40,11 +45,11 @@ const imgs = await Promise.all(
     class="columns-2 gap-5 mx-2 sm:gap-8 md:columns-2 lg:columns-3 [&>a>img:not(:first-child)]:mt-8"
   >
     {
-      imgs.map(({ alternativeText, url, large, preview, height, width }) => (
+      imgs.map(({ alternativeText, large, preview }) => (
         <a
-          data-pswp-src={large}
-          data-pswp-width={width}
-          data-pswp-height={height}
+          data-pswp-src={large.url}
+          data-pswp-width={large.width}
+          data-pswp-height={large.height}
         >
           <PictureMosaicItem alt={alternativeText} src={preview} />
         </a>
@@ -65,6 +70,5 @@ const imgs = await Promise.all(
     bgClickAction: "close",
     bgOpacity: 0.9,
   });
-  console.log("--photswipe");
   lightbox.init();
 </script>
