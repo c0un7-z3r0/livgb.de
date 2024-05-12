@@ -3,8 +3,9 @@ import tailwind from "@astrojs/tailwind";
 import icon from "astro-icon";
 import { astroImageTools } from "astro-imagetools";
 import { defineConfig } from "astro/config";
-
 import react from "@astrojs/react";
+
+import robotsTxt from "astro-robots-txt";
 
 // https://astro.build/config
 export default defineConfig({
@@ -14,6 +15,7 @@ export default defineConfig({
       svgoOptions: {},
     }),
     astroImageTools,
+    robotsTxt({ sitemap: false }),
   ],
   output: "server",
   prefetch: {
