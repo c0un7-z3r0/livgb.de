@@ -7,6 +7,7 @@ import {
   GetFrontpage,
   type GetFrontpageQuery,
 } from "../graphql/__generated__/operations";
+import { logger } from "../lib/logger";
 
 const { data } = await client.query<GetFrontpageQuery>({
   fetchPolicy: "no-cache",
@@ -14,6 +15,7 @@ const { data } = await client.query<GetFrontpageQuery>({
 });
 
 const images = data.frontpage.data.attributes.Gallery.Images;
+logger.info("Frontpage loaded", { images: images.length });
 ---
 
 <Layout>

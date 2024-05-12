@@ -3,6 +3,8 @@ fragment Image on ComponentPageMedia {
     data {
       attributes {
         url
+        height
+        width
         alternativeText
         formats
       }

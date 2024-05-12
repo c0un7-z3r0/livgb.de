@@ -1,0 +1,55 @@
+---
+import "photoswipe/style.css";
+import type { ImageFragment } from "../graphql/__generated__/operations";
+import { mapImages, type MappedImage } from "../lib/image.helper";
+import PictureMosaicItem from "./PictureMosaicItem.astro";
+import { logger } from "../lib/logger";
+interface Props {
+  images: ImageFragment[];
+}
+const { images } = Astro.props;
+let imgs: MappedImage[] = [];
+try {
+  imgs = await mapImages(images);
+} catch (err) {
+  logger.error("Failed to map images for photo swipe gallery", {
+    error: err.message,
+  });
+}
+logger.info("Photo Swipe Gallery rendering", { images: imgs.length });
+---
+
+<div id="lightgallery">
+  <div
+    id="mosaic-container"
+    class="columns-2 gap-5 mx-2 sm:gap-8 md:columns-2 lg:columns-3 [&>a>img:not(:first-child)]:mt-8"
+  >
+    {
+      imgs.map(({ alternativeText, large, preview }) => (
+        <a
+          data-pswp-src={large.url}
+          data-pswp-width={large.width}
+          data-pswp-height={large.height}
+        >
+          <PictureMosaicItem alt={alternativeText} src={preview.url} />
+        </a>
+      ))
+    }
+  </div>
+</div>
+
+<script>
+  import PhotoSwipeLightbox from "photoswipe/lightbox";
+
+  const lightbox = new PhotoSwipeLightbox({
+    gallery: "#mosaic-container",
+    children: "a",
+    pswpModule: () => import("photoswipe"),
+    preload: [2, 2],
+    tapAction: "next",
+    doubleTapAction: false,
+    bgClickAction: "close",
+    bgOpacity: 0.9,
+  });
+  lightbox.init();
+</script>
