@@ -4,10 +4,8 @@ import icon from "astro-icon";
 import { astroImageTools } from "astro-imagetools";
 import { defineConfig } from "astro/config";
 import react from "@astrojs/react";
-import robotsTxt from "astro-robots-txt";
-import playformInline from "@playform/inline";
 
-import playformCompress from "@playform/compress";
+import robotsTxt from "astro-robots-txt";
 
 // https://astro.build/config
 export default defineConfig({
@@ -18,11 +16,7 @@ export default defineConfig({
       svgoOptions: {},
     }),
     astroImageTools,
-    robotsTxt({
-      sitemap: false,
-    }),
-    playformInline(),
-    playformCompress(),
+    robotsTxt({ sitemap: false }),
   ],
   output: "server",
   prefetch: {
@@ -32,4 +26,3 @@ export default defineConfig({
     mode: "middleware",
   }),
 });
-
