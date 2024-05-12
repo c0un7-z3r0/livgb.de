@@ -1,5 +1,4 @@
 ---
-import "photoswipe/style.css";
 import type { ImageFragment } from "../graphql/__generated__/operations";
 import { mapImages, type MappedImage } from "../lib/image.helper";
 import PictureMosaicItem from "./PictureMosaicItem.astro";
@@ -21,7 +20,7 @@ logger.info("Photo Swipe Gallery rendering", { images: imgs.length });
 
 <div id="lightgallery">
   <div
-    id="mosaic-container"
+    id="photoswipe-container"
     class="columns-2 gap-5 mx-2 sm:gap-8 md:columns-2 lg:columns-3 [&>a>img:not(:first-child)]:mt-8"
   >
     {
@@ -39,12 +38,14 @@ logger.info("Photo Swipe Gallery rendering", { images: imgs.length });
 </div>
 
 <script>
+  import "photoswipe/style.css";
+  import pswpModule from "photoswipe";
   import PhotoSwipeLightbox from "photoswipe/lightbox";
 
   const lightbox = new PhotoSwipeLightbox({
-    gallery: "#mosaic-container",
+    gallery: "#photoswipe-container",
     children: "a",
-    pswpModule: () => import("photoswipe"),
+    pswpModule,
     preload: [2, 2],
     tapAction: "next",
     doubleTapAction: false,
