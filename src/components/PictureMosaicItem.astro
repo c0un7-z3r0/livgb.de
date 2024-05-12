@@ -1,6 +1,8 @@
 ---
 import { Img } from "astro-imagetools/components";
+import { logger } from "../lib/logger";
 const { src, alt = "" } = Astro.props;
+logger.info("Render image", { src, alt });
 ---
 
 <Img
