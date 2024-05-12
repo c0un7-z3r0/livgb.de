@@ -28,10 +28,11 @@ const currentYear = new Date().getFullYear();
       </button>
     </div>
   </div>
+  <div id="backdrop" class="z-10 h-screen w-full absolute hidden"></div>
 
   <div
     id="sidebar"
-    class="flex-col flex-1 pr-12 pt-2 h-screen
+    class="flex-col flex-1 pr-12 pt-2 h-screen z-20
           overflow-y-auto align-middle absolute
           bg-white shadow-2xl -translate-x-96 transition-transform ease-in-out duration-500
           md:bg-transparent md:shadow-none md:p-0 md:flex md:mt-5 md:translate-x-0"
@@ -89,14 +90,27 @@ const currentYear = new Date().getFullYear();
 <script>
   const mobileMenuButton = document.getElementById("mobile-menu-btn");
   const sidebar = document.getElementById("sidebar");
+  const backdrop = document.getElementById("backdrop");
 
-  mobileMenuButton.addEventListener("click", () => {
+  const showMenu = () => {
+    sidebar.classList.remove("-translate-x-96");
+    backdrop.classList.remove("hidden");
+  };
+  const hideMenu = () => {
+    sidebar.classList.add("-translate-x-96");
+    backdrop.classList.add("hidden");
+  };
+
+  const toggleMenu = () => {
     if (sidebar.classList.contains("-translate-x-96")) {
-      sidebar.classList.remove("-translate-x-96");
+      showMenu();
     } else {
-      sidebar.classList.add("-translate-x-96");
+      hideMenu();
     }
-  });
+  };
+
+  mobileMenuButton.addEventListener("click", () => toggleMenu());
+  backdrop.addEventListener("click", () => hideMenu());
 </script>
 
 <style></style>
