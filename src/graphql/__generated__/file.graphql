@@ -259,6 +259,8 @@ type Global {
   Sidebar: ComponentLayoutNavBar
   Title: String!
   createdAt: DateTime
+  locale: String
+  localizations(publicationState: PublicationState = LIVE): GlobalRelationResponseCollection
   publishedAt: DateTime
   updatedAt: DateTime
 }
@@ -278,12 +280,19 @@ input GlobalInput {
   publishedAt: DateTime
 }
 
+type GlobalRelationResponseCollection {
+  data: [GlobalEntity!]!
+}
+
 type I18NLocale {
   code: String
   createdAt: DateTime
   name: String
   updatedAt: DateTime
 }
+
+"""A string used to identify an i18n locale"""
+scalar I18NLocaleCode
 
 type I18NLocaleEntity {
   attributes: I18NLocale
@@ -418,6 +427,7 @@ input JSONFilterInput {
 type Mutation {
   """Change user password. Confirm with the current password."""
   changePassword(currentPassword: String!, password: String!, passwordConfirmation: String!): UsersPermissionsLoginPayload
+  createGlobalLocalization(data: GlobalInput, id: ID, locale: I18NLocaleCode): GlobalEntityResponse
   createNavigationAudience(data: NavigationAudienceInput!): NavigationAudienceEntityResponse
   createNavigationNavigation(data: NavigationNavigationInput!): NavigationNavigationEntityResponse
   createNavigationNavigationItem(data: NavigationNavigationItemInput!): NavigationNavigationItemEntityResponse
@@ -432,7 +442,7 @@ type Mutation {
   """Create a new user"""
   createUsersPermissionsUser(data: UsersPermissionsUserInput!): UsersPermissionsUserEntityResponse!
   deleteFrontpage: FrontpageEntityResponse
-  deleteGlobal: GlobalEntityResponse
+  deleteGlobal(locale: I18NLocaleCode): GlobalEntityResponse
   deleteImprint: ImprintEntityResponse
   deleteNavigationAudience(id: ID!): NavigationAudienceEntityResponse
   deleteNavigationNavigation(id: ID!): NavigationNavigationEntityResponse
@@ -466,7 +476,7 @@ type Mutation {
   resetPassword(code: String!, password: String!, passwordConfirmation: String!): UsersPermissionsLoginPayload
   updateFileInfo(id: ID!, info: FileInfoInput): UploadFileEntityResponse!
   updateFrontpage(data: FrontpageInput!): FrontpageEntityResponse
-  updateGlobal(data: GlobalInput!): GlobalEntityResponse
+  updateGlobal(data: GlobalInput!, locale: I18NLocaleCode): GlobalEntityResponse
   updateImprint(data: ImprintInput!): ImprintEntityResponse
   updateNavigationAudience(data: NavigationAudienceInput!, id: ID!): NavigationAudienceEntityResponse
   updateNavigationNavigation(data: NavigationNavigationInput!, id: ID!): NavigationNavigationEntityResponse
@@ -771,7 +781,7 @@ enum PublicationState {
 
 type Query {
   frontpage: FrontpageEntityResponse
-  global(publicationState: PublicationState = LIVE): GlobalEntityResponse
+  global(locale: I18NLocaleCode, publicationState: PublicationState = LIVE): GlobalEntityResponse
   i18NLocale(id: ID): I18NLocaleEntityResponse
   i18NLocales(filters: I18NLocaleFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): I18NLocaleEntityResponseCollection
   imprint(publicationState: PublicationState = LIVE): ImprintEntityResponse

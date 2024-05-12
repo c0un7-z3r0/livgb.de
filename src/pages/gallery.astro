@@ -1,6 +1,4 @@
 ---
-import MosaicContainer from "../components/MosaicContainer.astro";
-
 import Layout from "../layouts/Layout.astro";
 import client from "../graphql/apollo-client";
 import {
@@ -8,6 +6,7 @@ import {
   type GetFrontpageQuery,
 } from "../graphql/__generated__/operations";
 import { logger } from "../lib/logger";
+import PhotoSwipeGallery from "../components/PhotoSwipeGallery.astro";
 
 const { data } = await client.query<GetFrontpageQuery>({
   fetchPolicy: "no-cache",
@@ -19,5 +18,5 @@ logger.info("Frontpage loaded", { images: images.length });
 ---
 
 <Layout>
-  <MosaicContainer images={images} />
+  <PhotoSwipeGallery images={images} />
 </Layout>
