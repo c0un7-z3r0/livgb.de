@@ -1,0 +1,22 @@
+---
+import Layout from "../layouts/Layout.astro";
+import client from "../graphql/apollo-client";
+import {
+  GetFrontpage,
+  type GetFrontpageQuery,
+} from "../graphql/__generated__/operations";
+import { logger } from "../lib/logger";
+import PhotoSwipeGallery from "../components/PhotoSwipeGallery.astro";
+
+const { data } = await client.query<GetFrontpageQuery>({
+  fetchPolicy: "no-cache",
+  query: GetFrontpage,
+});
+
+const images = data.frontpage.data.attributes.Gallery.Images;
+logger.info("Frontpage loaded", { images: images.length });
+---
+
+<Layout>
+  <PhotoSwipeGallery images={images} />
+</Layout>
