@@ -4,14 +4,9 @@ import icon from "astro-icon";
 import { astroImageTools } from "astro-imagetools";
 import { defineConfig } from "astro/config";
 import robotsTxt from "astro-robots-txt";
-import partytown from "@astrojs/partytown";
-import playformCompress from "@playform/compress";
-
-import playformInline from "@playform/inline";
 
 // https://astro.build/config
 export default defineConfig({
-  site: "https://livgb.de",
   integrations: [
     tailwind(),
     icon({
@@ -21,8 +16,6 @@ export default defineConfig({
     robotsTxt({
       sitemap: false,
     }),
-    playformCompress(),
-    playformInline(),
   ],
   output: "server",
   prefetch: {
