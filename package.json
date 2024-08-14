@@ -43,7 +43,7 @@
     "@graphql-codegen/typescript-document-nodes": "^4.0.6",
     "@graphql-codegen/typescript-operations": "^4.2.0",
     "@graphql-typed-document-node/core": "^3.2.0",
-    "@iconify-json/ant-design": "^1.1.16",
+    "@iconify-json/ant-design": "^1.1.17",
     "@iconify-json/mdi": "^1.1.66",
     "@types/postcss-inline-svg": "^5.0.3",
     "graphql": "^16.9.0",
