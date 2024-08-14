@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "@apollo/client": "^3.10.1",
-    "@astrojs/check": "^0.5.10",
+    "@astrojs/check": "^0.9.2",
     "@astrojs/node": "^8.2.5",
     "@astrojs/react": "^3.3.0",
     "@astrojs/tailwind": "^5.1.0",
