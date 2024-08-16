@@ -1,8 +1,22 @@
 const express = require("express");
+const helmet = require("helmet");
 
 const app = express();
 
 const base = "/";
+
+app.use(
+  helmet({
+    contentSecurityPolicy: {
+      directives: {
+        "default-src": ["'self'"],
+        "img-src": ["'self'", "https://*.livgb.de", "data:"],
+        "script-src": ["'self'", "'unsafe-inline'"],
+        "script-src-attr": ["'unsafe-hashes'", "'unsafe-inline'"],
+      },
+    },
+  }),
+);
 
 app.use(base, express.static("dist/client/"));
 
