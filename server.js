@@ -4,7 +4,17 @@ const helmet = require("helmet");
 const app = express();
 
 const base = "/";
-app.use(helmet());
+app.use(
+  helmet({
+    contentSecurityPolicy: {
+      directives: {
+        "default-src": ["'self'"],
+        "img-src": ["'self", "https://*.livgb.de", "data:"],
+        "script-src": ["'self'", "'unsafe-inline'"],
+      },
+    },
+  }),
+);
 
 app.use(base, express.static("dist/client/"));
 
