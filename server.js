@@ -9,8 +9,9 @@ app.use(
     contentSecurityPolicy: {
       directives: {
         "default-src": ["'self'"],
-        "img-src": ["'self", "https://*.livgb.de", "data:"],
+        "img-src": ["'self'", "https://*.livgb.de", "data:"],
         "script-src": ["'self'", "'unsafe-inline'"],
+        "script-src-attr": ["'unsafe-hashes'", "'unsafe-inline'"],
       },
     },
   }),
