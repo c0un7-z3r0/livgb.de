@@ -1,8 +1,10 @@
 const express = require("express");
+const helmet = require("helmet");
 
 const app = express();
 
 const base = "/";
+app.use(helmet());
 
 app.use(base, express.static("dist/client/"));
 
