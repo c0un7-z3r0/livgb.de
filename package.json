@@ -20,7 +20,7 @@
     "@dotenvx/dotenvx": "^0.35.1",
     "@types/react": "^19.0.1",
     "@types/react-dom": "^18.2.25",
-    "astro": "^4.16.6",
+    "astro": "^4.16.18",
     "astro-icon": "^1.1.0",
     "astro-imagetools": "^0.9.0",
     "astro-robots-txt": "^1.0.0",
